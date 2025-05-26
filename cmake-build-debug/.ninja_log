@@ -1,0 +1,14 @@
+# ninja log v5
+1	1210	7526910293224625	CMakeFiles/GraphicsProject.dir/libgraphics/exceptio.c.obj	ac59e0d91bb7f5e9
+159	1214	7526910295495978	CMakeFiles/GraphicsProject.dir/libgraphics/linkedlist.c.obj	2d5b6f878d98f16f
+262	1215	7526910295790901	CMakeFiles/GraphicsProject.dir/libgraphics/genlib.c.obj	8a60060cec4ed7a9
+457	1217	7526910298420676	CMakeFiles/GraphicsProject.dir/libgraphics/simpio.c.obj	2f663290e8e2ecc
+548	1218	7526910299264554	CMakeFiles/GraphicsProject.dir/libgraphics/strlib.c.obj	8c4b9c19d889fd24
+686	1219	7526910300527507	CMakeFiles/GraphicsProject.dir/libgraphics/random.c.obj	4f7209f588c5dc60
+780	1283	7526910301366773	CMakeFiles/GraphicsProject.dir/queue.c.obj	c6513b762aaffc52
+72	1489	7526910303417866	CMakeFiles/GraphicsProject.dir/main.c.obj	9d2e51e869d520be
+349	1966	7526910308210554	CMakeFiles/GraphicsProject.dir/libgraphics/graphics.c.obj	3425e18045d31f4d
+891	2378	7526910312329464	CMakeFiles/GraphicsProject.dir/maze.c.obj	90310ad2747c4782
+1096	2402	7526910312571633	CMakeFiles/GraphicsProject.dir/file.c.obj	47780c74ff525527
+984	2506	7526910313611534	CMakeFiles/GraphicsProject.dir/libgraphics/imgui.c.obj	362d8b3bd4d87b1
+2506	2998	7526910318498867	GraphicsProject.exe	739e0877ab8fd7b7
