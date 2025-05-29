@@ -24,7 +24,7 @@
 ### 3. 导入项目
 1. 打开CLion
 2. 点击"File" → "Open"
-3. 选择解压后的`GraphicsProject`文件夹
+3. 选择解压后的`Maze_Game-master`文件夹
 4. 在弹出的对话框中勾选"Trust project"选项，点击"Trust Project"
 
 ### 4. 构建项目
@@ -33,7 +33,7 @@
 
 ### 5. 配置运行设置
 1. 点击右上角的"Edit Configurations"
-2. 确保"Working directory"设置为`GraphicsProject`文件夹路径
+2. 确保"Working directory"设置为`Maze_Game-master`文件夹路径
 3. 点击"OK"保存设置
 
 ## 运行程序
@@ -43,8 +43,8 @@
 ## 替代运行方式
 如果想直接运行可执行文件：
 1. 导航到`cmake-build-debug`文件夹
-2. 将`GraphicsProject.exe`复制到`GraphicsProject`文件夹中
-3. 直接运行`GraphicsProject.exe`
+2. 将`Maze_Game-master.exe`复制到`Maze_Game-master`文件夹中
+3. 直接运行`Maze_Game-master.exe`
 
 ## 注意事项
 - 请确保运行时的路径不包含中文字符
