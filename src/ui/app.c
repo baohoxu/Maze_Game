@@ -1,4 +1,4 @@
-#include "maze.h"
+#include "app.h"
 
 extern int win;
 extern double winWidth, winHeight;
@@ -27,13 +27,13 @@ int isPlaying = 0;
 int isHelping = 0;
 int isAbouting = 0;
 int isShowing = 0;
-static char name[21] = "Î´ÃüÃû";
+static char name[21] = "æœªå‘½å";
 
 queue* show;
 int showVisited[MAZESIZE][MAZESIZE];
 int fakeMaze[MAZESIZE][MAZESIZE];
 
-//¼ÆÊ±Æ÷
+//è®¡æ—¶å™¨
 void TimerEventProcess(int TimerID) {
 
     if(TimerID == HEALTH && hasBegin) {
@@ -139,13 +139,13 @@ void TimerEventProcess(int TimerID) {
     }
 }
 
-//×Ö·û¿ØÖÆ
+//å­—ç¬¦æ§åˆ¶
 void CharEventProcess(char ch) {
     uiGetChar(ch);
     display();
 }
 
-//¼üÅÌ¿ØÖÆ
+//é”®ç›˜æ§åˆ¶
 void KeyboardEventProcess(int key, int event) {
     uiGetKeyboard(key,event);
 
@@ -240,7 +240,7 @@ void KeyboardEventProcess(int key, int event) {
 
 }
 
-//Êó±ê¿ØÖÆ
+//é¼ æ ‡æ§åˆ¶
 void MouseEventProcess(int x, int y, int button, int event) {
     uiGetMouse(x, y, button, event);
 
@@ -271,7 +271,7 @@ void MouseEventProcess(int x, int y, int button, int event) {
 
 }
 
-//°ÑÊı×Ö×ªÎª×Ö·û´®
+//æŠŠæ•°å­—è½¬ä¸ºå­—ç¬¦ä¸²
 string IntToString(int n) {
 
     if(!n) return "0";
@@ -292,7 +292,7 @@ string IntToString(int n) {
     return ret;
 }
 
-//¹ã¶ÈÓÅÏÈËÑË÷
+//å¹¿åº¦ä¼˜å…ˆæœç´¢
 void bfs(queue* p, int** visited, int steps, int* ret, int target) {
 
     int k = count(p);
@@ -339,7 +339,7 @@ void bfs(queue* p, int** visited, int steps, int* ret, int target) {
 
 }
 
-//½âÃÔ¹¬
+//è§£è¿·å®«
 int hasAns() {
 
     queue* currPath = (queue*) malloc(sizeof(queue));
@@ -387,7 +387,7 @@ int hasAns() {
 
 }
 
-//Ëæ»úÉú³ÉÃÔ¹¬
+//éšæœºç”Ÿæˆè¿·å®«
 void initMaze() {
 
     for(int i = 0; i < MAZESIZE; i++) {
@@ -412,7 +412,7 @@ void initMaze() {
 
 }
 
-//¼ÇÂ¼µØÍ¼Ã¿¸ö¸ñ×ÓµÄÎ»ÖÃ
+//è®°å½•åœ°å›¾æ¯ä¸ªæ ¼å­çš„ä½ç½®
 void initMazePoint() {
     for(int i = 0; i < MAZESIZE; i++) {
         for(int j = 0; j < MAZESIZE; j++) {
@@ -425,7 +425,7 @@ void initMazePoint() {
     while(hasAns() <= 30) initMaze();
 }
 
-//ÉèÖÃÒ»¸öÃÅ
+//è®¾ç½®ä¸€ä¸ªé—¨
 void setADoor() {
 
     queue* p = path;
@@ -447,7 +447,7 @@ void setADoor() {
     hasDoor = 1;
 }
 
-//ÉèÖÃÒ»¸öÔ¿³×
+//è®¾ç½®ä¸€ä¸ªé’¥åŒ™
 void setAKey() {
 
     int kx = rand() % (MAZESIZE - 2) + 1;
@@ -464,31 +464,31 @@ void setAKey() {
     hasKey = 1;
 }
 
-//ÏÔÊ¾Ê£ÓàÔ¿³×Êı
+//æ˜¾ç¤ºå‰©ä½™é’¥åŒ™æ•°
 void drawLeftKeys() {
 
     SetPenColor("Black");
     SetPointSize(20);
 
     MovePen(0.7, winHeight - 0.7 - GetFontHeight() * 12);
-    DrawTextString("Ê£ÓàÔ¿³×:");
+    DrawTextString("å‰©ä½™é’¥åŒ™:");
 
     DrawTextString(IntToString(leftKey));
 
 }
 
-//»æÖÆÊ£ÓàÑªÁ¿
+//ç»˜åˆ¶å‰©ä½™è¡€é‡
 void drawHealth() {
 
     SetPenColor("Black");
 
     MovePen(0.7, winHeight - 0.7 - GetFontHeight() * 11);
-    DrawTextString("Ê£ÓàÑªÁ¿:");
+    DrawTextString("å‰©ä½™è¡€é‡:");
 
     DrawTextString(IntToString(health));
 }
 
-//»æÖÆ¶à±ßĞÎ
+//ç»˜åˆ¶å¤šè¾¹å½¢
 void drawPolygon(point* p, int n) {
     SetPointSize(15);
     MovePen(p->x, p->y);
@@ -498,7 +498,7 @@ void drawPolygon(point* p, int n) {
     DrawLine(p->x - (p+n-1)->x, p->y - (p+n-1)->y);
 }
 
-//»æÖÆÒ»¸ö¸ñ×Ó
+//ç»˜åˆ¶ä¸€ä¸ªæ ¼å­
 void drawGrid(double x, double y) {
     SetPointSize(15);
     MovePen(x - GRIDSIZE / 2, y - GRIDSIZE / 2);
@@ -508,7 +508,7 @@ void drawGrid(double x, double y) {
     DrawLine(-GRIDSIZE, 0);
 }
 
-//»æÖÆÒ»ÉÈÃÅ
+//ç»˜åˆ¶ä¸€æ‰‡é—¨
 void drawDoor(double x, double y) {
 
     SetPointSize(40);
@@ -525,7 +525,7 @@ void drawDoor(double x, double y) {
 
 }
 
-//»æÖÆÒ»°ÑÔ¿³×
+//ç»˜åˆ¶ä¸€æŠŠé’¥åŒ™
 void drawKey(double x, double y) {
 
     SetPointSize(25);
@@ -545,18 +545,18 @@ void drawKey(double x, double y) {
 
 }
 
-//»æÖÆµØÍ¼Ñ¡Ôñ½çÃæ
+//ç»˜åˆ¶åœ°å›¾é€‰æ‹©ç•Œé¢
 void drawChooseMaze() {
 
     SetPointSize(15);
 
     double h = GetFontHeight() * 1.5;
-    double w = TextStringWidth("±à¼­") * 2;
+    double w = TextStringWidth("ç¼–è¾‘") * 2;
     double wlist = TextStringWidth("MaZheDaShuaiGe")*1.2;
 
     int n = fileCount(fileName);
     string* fileNameList = (string*) malloc((n + 1) * sizeof(string));
-    fileNameList[0] = "µØÍ¼ÁĞ±í";
+    fileNameList[0] = "åœ°å›¾åˆ—è¡¨";
     FileNode* p = fileName;
 
     for(int i = 1; i <= n; i++) {
@@ -569,7 +569,7 @@ void drawChooseMaze() {
     int selection;
     selection = menuList(GenUIID(0), w-0.05, winHeight-2*h, wlist, wlist, h, fileNameList, n+1);
     if(selection > 0) {
-        strcpy(name, readMaze(selection));
+        strcpy(name, readMaze(selection, fileName, &playerX, &playerY, &targetX, &targetY, maze));
         isHelping = 0;
         isAbouting = 0;
         isOpening = 0;
@@ -585,23 +585,23 @@ void drawChooseMaze() {
 
 }
 
-//»æÖÆÔªËØÑ¡Ôñ½çÃæ
+//ç»˜åˆ¶å…ƒç´ é€‰æ‹©ç•Œé¢
 void drawChooseElement() {
 
     SetPointSize(15);
 
     double h = GetFontHeight() * 1.5;
-    double w = TextStringWidth("±à¼­") * 2;
+    double w = TextStringWidth("ç¼–è¾‘") * 2;
     double wlist = TextStringWidth("MaZheDaShuaiGe")*1.2;
 
     static string elementList[] = {
-            "ÔªËØÁĞ±í",
-            "µÀÂ·",
-            "ÕÏ°­Îï",
-            "Æğµã",
-            "ÖÕµã",
-            "ÃÅ",
-            "Ô¿³×"
+            "å…ƒç´ åˆ—è¡¨",
+            "é“è·¯",
+            "éšœç¢ç‰©",
+            "èµ·ç‚¹",
+            "ç»ˆç‚¹",
+            "é—¨",
+            "é’¥åŒ™"
     };
 
     int selection;
@@ -616,7 +616,7 @@ void drawChooseElement() {
 
 }
 
-//ÏÔÊ¾µ±Ç°ÔªËØ
+//æ˜¾ç¤ºå½“å‰å…ƒç´ 
 void drawCurrElement() {
 
     SetPointSize(15);
@@ -624,55 +624,55 @@ void drawCurrElement() {
     SetPenColor("Blue");
 
     double h = GetFontHeight() * 1.5;
-    double w = TextStringWidth("±à¼­") * 2;
+    double w = TextStringWidth("ç¼–è¾‘") * 2;
     double wlist = TextStringWidth("MaZheDaShuaiGe")*1.2;
 
     static string elementList[] = {
-            "µÀÂ·",
-            "ÕÏ°­Îï",
-            "Æğµã",
-            "ÖÕµã",
-            "ÃÅ",
-            "Ô¿³×"
+            "é“è·¯",
+            "éšœç¢ç‰©",
+            "èµ·ç‚¹",
+            "ç»ˆç‚¹",
+            "é—¨",
+            "é’¥åŒ™"
     };
 
     MovePen(w+wlist+0.05, winHeight-2*h);
-    DrawTextString("±à¼­ÖĞ,µ±Ç°ÔªËØÎª:");
+    DrawTextString("ç¼–è¾‘ä¸­,å½“å‰å…ƒç´ ä¸º:");
     DrawTextString(elementList[element]);
 
 }
 
-//»æÖÆ²Ëµ¥À¸
+//ç»˜åˆ¶èœå•æ 
 void drawMenu() {
 
     static string menuListFile[] = {
-            "ÎÄ¼ş",
-            "ĞÂ½¨µØÍ¼ | Ctrl-N",
-            "´ò¿ªµØÍ¼ | Ctrl-O",
-            "±£´æµØÍ¼ | Ctrl-S",
-            "ÍË³ö | Ctrl-T"
+            "æ–‡ä»¶",
+            "æ–°å»ºåœ°å›¾ | Ctrl-N",
+            "æ‰“å¼€åœ°å›¾ | Ctrl-O",
+            "ä¿å­˜åœ°å›¾ | Ctrl-S",
+            "é€€å‡º | Ctrl-T"
     };
 
     static string menuListEdit[] = {
-            "±à¼­",
-            "Ëæ»úÉú³É | Ctrl-L",
-            "ÊÖ¶¯±à¼­ | Ctrl-P",
-            "ÔªËØÑ¡Ôñ"
+            "ç¼–è¾‘",
+            "éšæœºç”Ÿæˆ | Ctrl-L",
+            "æ‰‹åŠ¨ç¼–è¾‘ | Ctrl-P",
+            "å…ƒç´ é€‰æ‹©"
     };
 
     static string menuListAnswer[] = {
-            "Çó½â",
-            "ÊÖ¶¯Çó½â | Ctrl-Q",
-            "ÌáÊ¾Ò»²½ | Ctrl-W",
-            "³ÌĞòÇó½â | Ctrl-E",
-            "×Ô¶¯Ö´ĞĞ",
-            "Çó½â¹ı³Ì"
+            "æ±‚è§£",
+            "æ‰‹åŠ¨æ±‚è§£ | Ctrl-Q",
+            "æç¤ºä¸€æ­¥ | Ctrl-W",
+            "ç¨‹åºæ±‚è§£ | Ctrl-E",
+            "è‡ªåŠ¨æ‰§è¡Œ",
+            "æ±‚è§£è¿‡ç¨‹"
     };
 
     static string menuListHelp[] = {
-            "°ïÖú",
-            "Ê¹ÓÃËµÃ÷",
-            "¹ØÓÚ"
+            "å¸®åŠ©",
+            "ä½¿ç”¨è¯´æ˜",
+            "å…³äº"
     };
 
     SetPointSize(15);
@@ -682,7 +682,7 @@ void drawMenu() {
     double wlist = TextStringWidth(menuListFile[3])*1.2;
     int selection;
 
-    if(button(GenUIID(0), w*6+0.4, winHeight-2*h, w, h, isRenaming ? "È·ÈÏ" : "ÖØÃüÃû")) {
+    if(button(GenUIID(0), w*6+0.4, winHeight-2*h, w, h, isRenaming ? "ç¡®è®¤" : "é‡å‘½å")) {
         isRenaming = !isRenaming;
     }
 
@@ -695,7 +695,7 @@ void drawMenu() {
     selection = menuList(GenUIID(0), 0, winHeight-h, w, wlist, h, menuListFile, sizeof(menuListFile)/sizeof(menuListFile[0]));
     if(selection == 1) {
 
-        //ĞÂ½¨µØÍ¼
+        //æ–°å»ºåœ°å›¾
         isHelping = 0;
         isAbouting = 0;
         isEditing = 0;
@@ -720,13 +720,13 @@ void drawMenu() {
 
     }else if(selection == 2) {
 
-        //´ò¿ªµØÍ¼
+        //æ‰“å¼€åœ°å›¾
         isOpening = 1;
         isChoosingElement = 0;
 
     }else if(selection == 3) {
 
-        //±£´æµØÍ¼
+        //ä¿å­˜åœ°å›¾
         if(!win) {
             FILE *fp;
             if (filePush(fileName, name)) {
@@ -759,7 +759,7 @@ void drawMenu() {
 
     }else if(selection == 4) {
 
-        //ÍË³ö
+        //é€€å‡º
         exit(-1);
 
     }
@@ -768,7 +768,7 @@ void drawMenu() {
     selection = menuList(GenUIID(0), w, winHeight-h, w, wlist, h, menuListEdit, sizeof(menuListEdit)/sizeof(menuListEdit[0]));
     if(selection == 1) {
 
-        //Ëæ»úÉú³É
+        //éšæœºç”Ÿæˆ
         isHelping = 0;
         isAbouting = 0;
         isEditing = 0;
@@ -786,14 +786,14 @@ void drawMenu() {
 
     }else if(selection == 2) {
 
-        //ÊÖ¶¯±à¼­
+        //æ‰‹åŠ¨ç¼–è¾‘
         isEditing = !isEditing;
         hasBegin = 0;
         health = 100;
 
     }else if(selection == 3) {
 
-        //ÔªËØÑ¡Ôñ
+        //å…ƒç´ é€‰æ‹©
         isChoosingElement = !isChoosingElement;
         isOpening = 0;
 
@@ -803,7 +803,7 @@ void drawMenu() {
     selection = menuList(GenUIID(0), 2*w, winHeight-h, w, wlist, h, menuListAnswer, sizeof(menuListAnswer)/sizeof(menuListAnswer[0]));
     if(selection == 1) {
 
-        //ÊÖ¶¯Çó½â
+        //æ‰‹åŠ¨æ±‚è§£
         isAnswering = 0;
         isNexting = 0;
         isPlaying = 0;
@@ -811,13 +811,13 @@ void drawMenu() {
 
     }else if(selection == 2) {
 
-        //ÌáÊ¾Ò»²½
+        //æç¤ºä¸€æ­¥
         isNexting = 1;
         isAnswering = 0;
 
     }else if(selection == 3) {
 
-        //³ÌĞòÇó½â
+        //ç¨‹åºæ±‚è§£
         if(!isEditing) {
             isAnswering = 1;
             isNexting = 0;
@@ -825,7 +825,7 @@ void drawMenu() {
 
     }else if(selection == 4) {
 
-        //×Ô¶¯Ö´ĞĞ
+        //è‡ªåŠ¨æ‰§è¡Œ
         isShowing = 0;
         isPlaying = !isPlaying;
         isAnswering = isPlaying;
@@ -833,7 +833,7 @@ void drawMenu() {
 
     }else if(selection == 5) {
 
-        //Çó½â¹ı³Ì
+        //æ±‚è§£è¿‡ç¨‹
         isShowing = !isShowing;
         isAnswering = 0;
         isPlaying = 0;
@@ -860,14 +860,14 @@ void drawMenu() {
     selection = menuList(GenUIID(0), 3*w, winHeight-h, w, wlist, h, menuListHelp, sizeof(menuListHelp)/sizeof(menuListHelp[0]));
     if(selection == 1) {
 
-        //Ê¹ÓÃËµÃ÷
+        //ä½¿ç”¨è¯´æ˜
         isAbouting = 0;
         isHelping = 1;
         hasBegin = 0;
 
     }else if(selection == 2) {
 
-        //¹ØÓÚ
+        //å…³äº
         isHelping = 0;
         isAbouting = 1;
         hasBegin = 0;
@@ -878,7 +878,7 @@ void drawMenu() {
 
 }
 
-//³õÊ¼»¯½çÃæ
+//åˆå§‹åŒ–ç•Œé¢
 void initMap() {
     point map[4] = {
             0.6, 0.1,
@@ -893,7 +893,7 @@ void initMap() {
     SetPenSize(2);
 }
 
-//»æÖÆÒ»¸öµã£¨Íæ¼ÒorÖÕµã£©
+//ç»˜åˆ¶ä¸€ä¸ªç‚¹ï¼ˆç©å®¶orç»ˆç‚¹ï¼‰
 void drawPoint(double x, double y) {
     SetPenSize(2);
     MovePen(x + 0.14, y);
@@ -902,7 +902,7 @@ void drawPoint(double x, double y) {
     }
 }
 
-//»æÖÆÃÔ¹¬
+//ç»˜åˆ¶è¿·å®«
 void drawMaze() {
 
     SetPointSize(15);
@@ -910,18 +910,18 @@ void drawMaze() {
         for(int j = 0; j < MAZESIZE; j++) {
             if(maze[i][j] == 1) {
 
-                //ÕÏ°­Îï
+                //éšœç¢ç‰©
                 SetPenColor("Black");
                 drawGrid(mazePoint[i][j].x, mazePoint[i][j].y);
             }else if(maze[i][j] == 4) {
 
-                //ÃÅ
+                //é—¨
                 SetPenColor("Dark gray");
                 drawDoor(mazePoint[i][j].x, mazePoint[i][j].y);
 
             }else if(maze[i][j] == 5) {
 
-                //Ô¿³×
+                //é’¥åŒ™
                 SetPenColor("Magenta");
                 drawKey(mazePoint[i][j].x, mazePoint[i][j].y);
 
@@ -931,7 +931,7 @@ void drawMaze() {
 
 }
 
-//»æÖÆ
+//ç»˜åˆ¶
 void initStart() {
 
     if(!hasDoor) setADoor();
@@ -974,13 +974,13 @@ void initStart() {
 
 }
 
-//»æÖÆÊ¤Àû»­Ãæ
+//ç»˜åˆ¶èƒœåˆ©ç”»é¢
 void drawWinMap() {
     SetPointSize(15);
     SetPenColor("Red");
-    string text1 = "³É¹¦^_^";
-    string text2 = "Äã¿ÉÒÔµã»÷Ëæ»úÉú³É»òĞÂ½¨µØÍ¼À´ÖØĞÂ¿ªÊ¼";
-    string text3 = "»òÕßÖ±½Ó´ò¿ªÒÑ±£´æµÄµØÍ¼";
+    string text1 = "æˆåŠŸ^_^";
+    string text2 = "ä½ å¯ä»¥ç‚¹å‡»éšæœºç”Ÿæˆæˆ–æ–°å»ºåœ°å›¾æ¥é‡æ–°å¼€å§‹";
+    string text3 = "æˆ–è€…ç›´æ¥æ‰“å¼€å·²ä¿å­˜çš„åœ°å›¾";
 
     SetPointSize(50);
     MovePen(winWidth / 2 - TextStringWidth(text1) / 2, winHeight / 2);
@@ -991,13 +991,13 @@ void drawWinMap() {
     DrawTextString(text3);
 }
 
-//»æÖÆÊ§°Ü½çÃæ
+//ç»˜åˆ¶å¤±è´¥ç•Œé¢
 void drawLoseMap() {
     SetPointSize(15);
     SetPenColor("Red");
-    string text1 = "Ê§°ÜÁËT_T";
-    string text2 = "Äã¿ÉÒÔµã»÷Ëæ»úÉú³É»òĞÂ½¨µØÍ¼À´ÖØĞÂ¿ªÊ¼";
-    string text3 = "»òÕßÖ±½Ó´ò¿ªÒÑ±£´æµÄµØÍ¼";
+    string text1 = "å¤±è´¥äº†T_T";
+    string text2 = "ä½ å¯ä»¥ç‚¹å‡»éšæœºç”Ÿæˆæˆ–æ–°å»ºåœ°å›¾æ¥é‡æ–°å¼€å§‹";
+    string text3 = "æˆ–è€…ç›´æ¥æ‰“å¼€å·²ä¿å­˜çš„åœ°å›¾";
 
     SetPointSize(50);
     MovePen(winWidth / 2 - TextStringWidth(text1) / 2, winHeight / 2);
@@ -1008,7 +1008,7 @@ void drawLoseMap() {
     DrawTextString(text3);
 }
 
-//»æÖÆ°ïÖú½çÃæ
+//ç»˜åˆ¶å¸®åŠ©ç•Œé¢
 void drawHelpMap() {
 
     SetPointSize(20);
@@ -1016,19 +1016,19 @@ void drawHelpMap() {
 
     string ss[] = {
 
-            "À¶É«Ğ¡ÇòÎªÍæ¼ÒÎ»ÖÃ ºìÉ«Ğ¡ÇòÎªÖÕµãÎ»ÖÃ",
-            "Í¨¹ıWASD»òÕß·½Ïò¼üÀ´²Ù¿ØĞ¡ÇòµÖ´ïÖÕµã¼´Ê¤Àû",
-            "³õÊ¼ÉúÃüÖµÎª100 »áÔÚ1·ÖÖÓÄÚ½µÎª0",
-            "Í¾ÖĞ»áÓĞÃÅ×èµ² ĞèÒªÑ°ÕÒÔ¿³×À´¿ªÃÅ",
-            "Ô¿³×ÊÇ×ÏÉ« ÃÅÊÇ»ÒÉ«",
-            "µØÍ¼¿ÉÒÔËæ»úÉú³É Ò²¿ÉÒÔ×ÔÖ÷±à¼­ Ëæ»úÉú³ÉÄ¬ÈÏ1ÃÅ1Ô¿³×",
-            "±à¼­Ê±¿ÉÑ¡ÔñÏëÒª·ÅÖÃµÄÎïÆ·ÖÖÀà",
-            "»¹¿ÉÒÔ¸ü¸ÄµØÍ¼Ãû×Ö",
-            "Í¨¹ıÃû×ÖÀ´±£´æ»òÕß´ò¿ªµØÍ¼",
-            "µ±½âÃÜ³öÏÖÀ§ÄÑÊ±¿ÉÒÔÊ¹ÓÃÇó½âÖĞµÄ¹¦ÄÜ",
-            "ÆäÖĞ³ÌĞò½âÃÜ»á¿ÉÊÓ»¯¸ø³ö½âÃÜÂ·¾¶",
-            "×Ô¶¯Ö´ĞĞ»áÔÚ¸ø³öÂ·¾¶µÄÍ¬Ê±×Ô¶¯ÒÆ¶¯Íê³É½âÃÜ",
-            "½øÈë¸÷ÖÖ±à¼­Ä£Ê½ºó¾ù¿ÉÍ¨¹ıESCÀ´ÍË³ö",
+            "è“è‰²å°çƒä¸ºç©å®¶ä½ç½® çº¢è‰²å°çƒä¸ºç»ˆç‚¹ä½ç½®",
+            "é€šè¿‡WASDæˆ–è€…æ–¹å‘é”®æ¥æ“æ§å°çƒæŠµè¾¾ç»ˆç‚¹å³èƒœåˆ©",
+            "åˆå§‹ç”Ÿå‘½å€¼ä¸º100 ä¼šåœ¨1åˆ†é’Ÿå†…é™ä¸º0",
+            "é€”ä¸­ä¼šæœ‰é—¨é˜»æŒ¡ éœ€è¦å¯»æ‰¾é’¥åŒ™æ¥å¼€é—¨",
+            "é’¥åŒ™æ˜¯ç´«è‰² é—¨æ˜¯ç°è‰²",
+            "åœ°å›¾å¯ä»¥éšæœºç”Ÿæˆ ä¹Ÿå¯ä»¥è‡ªä¸»ç¼–è¾‘ éšæœºç”Ÿæˆé»˜è®¤1é—¨1é’¥åŒ™",
+            "ç¼–è¾‘æ—¶å¯é€‰æ‹©æƒ³è¦æ”¾ç½®çš„ç‰©å“ç§ç±»",
+            "è¿˜å¯ä»¥æ›´æ”¹åœ°å›¾åå­—",
+            "é€šè¿‡åå­—æ¥ä¿å­˜æˆ–è€…æ‰“å¼€åœ°å›¾",
+            "å½“è§£å¯†å‡ºç°å›°éš¾æ—¶å¯ä»¥ä½¿ç”¨æ±‚è§£ä¸­çš„åŠŸèƒ½",
+            "å…¶ä¸­ç¨‹åºè§£å¯†ä¼šå¯è§†åŒ–ç»™å‡ºè§£å¯†è·¯å¾„",
+            "è‡ªåŠ¨æ‰§è¡Œä¼šåœ¨ç»™å‡ºè·¯å¾„çš„åŒæ—¶è‡ªåŠ¨ç§»åŠ¨å®Œæˆè§£å¯†",
+            "è¿›å…¥å„ç§ç¼–è¾‘æ¨¡å¼åå‡å¯é€šè¿‡ESCæ¥é€€å‡º",
 
     };
 
@@ -1040,7 +1040,7 @@ void drawHelpMap() {
     }
 }
 
-//»æÖÆ¹ØÓÚ½çÃæ
+//ç»˜åˆ¶å…³äºç•Œé¢
 void drawAboutMap() {
 
     SetPointSize(50);
@@ -1048,12 +1048,12 @@ void drawAboutMap() {
 
     string ss[] = {
 
-            "2022-2023´ºÏÄÑ§ÆÚ",
-            "³ÌĞòÉè¼Æ×¨Ìâ´ó×÷Òµ",
-            "¡¶ÃÔ¹¬ÓÎÏ·¡·",
-            "×÷Õß:µçĞÅ2201ÖìÓíÍ¬",
-            "ÁªÏµ·½Ê½:18905867535",
-            "ÓÊÏä:1210600514@qq.com"
+            "2022-2023æ˜¥å¤å­¦æœŸ",
+            "ç¨‹åºè®¾è®¡ä¸“é¢˜å¤§ä½œä¸š",
+            "ã€Šè¿·å®«æ¸¸æˆã€‹",
+            "ä½œè€…:ç”µä¿¡2201æœ±ç¦¹åŒ",
+            "è”ç³»æ–¹å¼:18905867535",
+            "é‚®ç®±:1210600514@qq.com"
 
     };
 
@@ -1065,7 +1065,7 @@ void drawAboutMap() {
     }
 }
 
-//Ë¢ĞÂ
+//åˆ·æ–°
 void display() {
     DisplayClear();
 

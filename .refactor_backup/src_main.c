@@ -1,4 +1,4 @@
-#include "maze.h"
+#include "app.h"
 
 int win = 0;
 
@@ -36,7 +36,7 @@ void Main() {
 
     SetFont("Times");
     SetPointSize(15);
-    readFileName();
+    readFileName(&fileName);
 
     initMazePoint();
 

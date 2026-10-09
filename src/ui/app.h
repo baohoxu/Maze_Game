@@ -1,5 +1,5 @@
-#ifndef GRAPHICSPROJECT_MAZE_H
-#define GRAPHICSPROJECT_MAZE_H
+#ifndef GRAPHICSPROJECT_APP_H
+#define GRAPHICSPROJECT_APP_H
 
 #include <math.h>
 #include <windows.h>
@@ -88,4 +88,4 @@ void drawAboutMap();
 
 void display();
 
-#endif //GRAPHICSPROJECT_MAZE_H
+#endif //GRAPHICSPROJECT_APP_H

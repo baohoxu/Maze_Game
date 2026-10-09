@@ -1,19 +1,13 @@
 #include "file.h"
 
-extern FileNode* fileName;
-extern int maze[MAZESIZE][MAZESIZE];
-
-extern int playerX, playerY;
-extern int targetX, targetY;
-
-void readFileName() {
+void readFileName(FileNode** fileName) {
     FILE* name = fopen("FileName.txt", "r");
 
-    fileName = (FileNode*) malloc(sizeof(FileNode));
-    fileName->next = NULL;
+    *fileName = (FileNode*) malloc(sizeof(FileNode));
+    (*fileName)->next = NULL;
     char ss[20];
 
-    FileNode* p = fileName;
+    FileNode* p = *fileName;
     while(fscanf(name, "%s", ss) != EOF) {
         p->next = (FileNode*) malloc(sizeof(FileNode));
         p = p->next;
@@ -47,7 +41,10 @@ int filePush(FileNode* head, string name) {
     return 1;
 }
 
-string readMaze(int n) {
+string readMaze(int n, FileNode* fileName, 
+                int* playerX, int* playerY, 
+                int* targetX, int* targetY, 
+                int maze[][MAZESIZE]) {
 
     FileNode* p = fileName;
     for(int i = 0; i < n; i++) {
@@ -60,8 +57,8 @@ string readMaze(int n) {
 
     FILE* fp = fopen(file, "r");
 
-    fscanf(fp, "%d %d", &playerX, &playerY);
-    fscanf(fp, "%d %d", &targetX, &targetY);
+    fscanf(fp, "%d %d", playerX, playerY);
+    fscanf(fp, "%d %d", targetX, targetY);
 
     for(int i = 0; i < MAZESIZE; i++) {
         for(int j = 0; j < MAZESIZE; j++) {

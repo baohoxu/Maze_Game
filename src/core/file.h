@@ -4,19 +4,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "maze.h"
+typedef char *string;
+
+#ifndef MAZESIZE
+#define MAZESIZE 14
+#endif
 
 typedef struct LinkNode {
     char name[21];
     struct LinkNode* next;
 }FileNode;
 
-void readFileName();
+void readFileName(FileNode** fileName);
 
 int fileCount(FileNode* head);
 
 int filePush(FileNode* head, string name);
 
-string readMaze(int n);
+string readMaze(int n, FileNode* fileName, 
+                int* playerX, int* playerY, 
+                int* targetX, int* targetY, 
+                int maze[][MAZESIZE]);
 
 #endif //GRAPHICSPROJECT_FILE_H
