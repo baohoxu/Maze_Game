@@ -40,4 +40,12 @@ set(UI_SRC
 
 add_executable(GraphicsProject src/main.c ${CORE_SRC} ${UI_SRC} ${LIBGRAPHICS_SRC})
 
+# Source files are UTF-8, but libgraphics draws text through the ANSI Win32
+# APIs (TextOut / CreateFont, since UNICODE is not defined), which interpret
+# bytes using the system ANSI code page (GBK on Simplified Chinese Windows).
+# PlaySound also takes an ANSI path. So the execution charset must be GBK,
+# otherwise every Chinese string literal reaches Windows as UTF-8 and shows
+# up as mojibake, and the music file cannot be found.
+add_compile_options(-finput-charset=UTF-8 -fexec-charset=GBK)
+
 target_link_libraries(GraphicsProject winmm)
