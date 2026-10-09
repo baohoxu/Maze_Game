@@ -46,6 +46,10 @@ add_executable(GraphicsProject src/main.c ${CORE_SRC} ${UI_SRC} ${LIBGRAPHICS_SR
 # PlaySound also takes an ANSI path. So the execution charset must be GBK,
 # otherwise every Chinese string literal reaches Windows as UTF-8 and shows
 # up as mojibake, and the music file cannot be found.
-add_compile_options(-finput-charset=UTF-8 -fexec-charset=GBK)
+#
+# NOTE: set through CMAKE_C_FLAGS rather than add_compile_options(), because
+# the latter was observed not to reach flags.make on some CMake versions.
+# Do not remove these two options.
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -finput-charset=UTF-8 -fexec-charset=GBK")
 
 target_link_libraries(GraphicsProject winmm)
