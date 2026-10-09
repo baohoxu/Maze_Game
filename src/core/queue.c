@@ -1,8 +1,8 @@
 #include "queue.h"
 
-void push(queue* head, queue* prev, int x, int y) {
+void push(Path* head, Path* prev, int x, int y) {
     while(head->next) head = head->next;
-    head->next = (queue*) malloc(sizeof(queue));
+    head->next = (Path*) malloc(sizeof(Path));
 
     head = head->next;
 
@@ -12,7 +12,7 @@ void push(queue* head, queue* prev, int x, int y) {
     head->y = y;
 }
 
-void pop(queue* head) {
+void pop(Path* head) {
 
     if(!head->next) return;
 
@@ -20,7 +20,7 @@ void pop(queue* head) {
 
 }
 
-void copy(queue* a, queue* b) {
+void copy(Path* a, Path* b) {
 
     //清空a
     while(a->next) {
@@ -34,16 +34,16 @@ void copy(queue* a, queue* b) {
     }
 }
 
-queue* reverse(queue* head) {
+Path* reverse(Path* head) {
     if(!head || !head->next) return head;
 
-    queue* newhead = reverse(head->next);
+    Path* newhead = reverse(head->next);
     head->next->next = head;
     head->next = NULL;
     return newhead;
 }
 
-int count(queue* head) {
+int count(Path* head) {
     int ret = 0;
     while(head->next) {
         ++ret;

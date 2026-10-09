@@ -4,11 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef char *string;
+#include "types.h"
 
-#ifndef MAZESIZE
-#define MAZESIZE 14
-#endif
+typedef char *string;
 
 typedef struct LinkNode {
     char name[21];

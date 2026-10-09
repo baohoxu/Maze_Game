@@ -1,35 +1,26 @@
 #include "app.h"
+#include "param.h"
+#include "input.h"
+#include "render.h"
+#include "pathfind.h"
+#include "maze_model.h"
 
-int win = 0;
-
-int playerX = 1, playerY = MAZESIZE - 2;
-
-int targetX = MAZESIZE - 2, targetY = 1;
-
-double winWidth = 10.0, winHeight = 7.0;
-
-int maze[MAZESIZE][MAZESIZE];
-
-point mazePoint[MAZESIZE][MAZESIZE];
-
-double mouseX, mouseY;
-
-queue* path = NULL;
-
-int isAnswering = 0;
-
-int isNexting = 0;
-
-int isEditing = 0;
-
-FileNode* fileName = NULL;
-
+/*
+ * 程序入口。
+ *
+ * 注意：真正的 Win32 入口 WinMain 定义在 libgraphics/graphics.c 中，
+ * 它在窗口创建完成后回调本文件的 Main()。因此这里没有 int main()。
+ */
 void Main() {
 
     PlaySound("./Music/魔术先生.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
-    path = (queue*)malloc(sizeof(queue));
+    param_init();
+
+    path = (Path*)malloc(sizeof(Path));
     path->next = NULL;
+    path->prev = NULL;
+
     SetWindowTitle("迷宫游戏");
     SetWindowSize(winWidth, winHeight);
     InitGraphics();

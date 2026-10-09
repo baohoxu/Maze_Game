@@ -1,6 +1,19 @@
 #ifndef GRAPHICSPROJECT_APP_H
 #define GRAPHICSPROJECT_APP_H
 
+/*
+ * File: app.h
+ * ------------
+ * 应用层的公共依赖与主循环接口。
+ *
+ * 本文件只负责两件事：
+ *   1. 引入 libgraphics 与 Win32 的头文件
+ *   2. 声明应用级入口（Main / display / TimerEventProcess）
+ *
+ * 它**不**引入 core 层的实现细节（queue.h / file.h / param.h），
+ * 各模块按需自行 include。
+ */
+
 #include <math.h>
 #include <windows.h>
 #include <winuser.h>
@@ -9,14 +22,11 @@
 #include "graphics.h"
 #include "extgraph.h"
 #include "imgui.h"
-#include "queue.h"
-#include "file.h"
+#include "types.h"
 
 #pragma comment(lib, "WinMM.Lib")
 
-#define GRIDSIZE 0.4
-#define MAZESIZE 14
-
+/* 定时器 ID，与 Main 中的 startTimer 调用对应 */
 enum timer{
     FLUSH,
     PLAY,
@@ -24,68 +34,8 @@ enum timer{
     ANSWER
 };
 
-typedef struct {
-    double x, y;
-}point;
-
 void TimerEventProcess(int TimerID);
 
-void CharEventProcess(char ch);
-
-void KeyboardEventProcess(int key, int event);
-
-void MouseEventProcess(int x, int y, int button, int event);
-
-string IntToString(int n);
-
-void bfs(queue* p, int** visited, int steps, int* ret, int target);
-
-int hasAns();
-
-void initMaze();
-
-void initMazePoint();
-
-void setADoor();
-
-void setAKey();
-
-void drawLeftKeys();
-
-void drawHealth();
-
-void drawPolygon(point* p, int n);
-
-void drawGrid(double x, double y);
-
-void drawDoor(double x, double y);
-
-void drawKey(double x, double y);
-
-void drawChooseMaze();
-
-void drawChooseElement();
-
-void drawCurrElement();
-
-void drawMenu();
-
-void initMap();
-
-void drawPoint(double x, double y);
-
-void drawMaze();
-
-void initStart();
-
-void drawWinMap();
-
-void drawLoseMap();
-
-void drawHelpMap();
-
-void drawAboutMap();
-
-void display();
+void display(void);
 
 #endif //GRAPHICSPROJECT_APP_H

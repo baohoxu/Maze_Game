@@ -6,16 +6,16 @@ typedef struct ListNode {
     int x, y;
     struct ListNode* next;
     struct ListNode* prev;
-}queue;
+} Path;
 
-void push(queue* head, queue* prev, int x, int y);
+void push(Path* head, Path* prev, int x, int y);
 
-void pop(queue* head);
+void pop(Path* head);
 
-void copy(queue* a, queue* b);
+void copy(Path* a, Path* b);
 
-queue* reverse(queue* head);
+Path* reverse(Path* head);
 
-int count(queue* head);
+int count(Path* head);
 
 #endif //GRAPHICSPROJECT_QUEUE_H
