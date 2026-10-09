@@ -7,10 +7,21 @@
 ```text
 Maze_Game/
 ├── CMakeLists.txt          CMake 构建配置
-├── main.c                  程序初始化，定义 Main()
-├── maze.c / maze.h         迷宫和界面逻辑
-├── queue.c / queue.h       队列及路径搜索逻辑
-├── file.c / file.h         迷宫文件读写
+├── src/
+│   ├── main.c              程序入口，定义 Main()
+│   ├── common/
+│   │   └── types.h         基础类型与常量（MAZESIZE/GRIDSIZE/point），零依赖
+│   ├── core/               迷宫逻辑与状态，不依赖图形库
+│   │   ├── param.h/.c      全部全局状态的唯一归属地
+│   │   ├── maze_model.c    随机生成、放置门与钥匙、记录格子坐标
+│   │   ├── pathfind.c      广度优先搜索与求解
+│   │   ├── queue.c/.h      路径链表（类型名为 Path）
+│   │   └── file.c/.h       迷宫文件读写
+│   └── ui/                 应用层，唯一接触 libgraphics 的地方
+│       ├── app.c/.h        主循环、定时器回调、界面分发
+│       ├── render.c        图元绘制与迷宫渲染
+│       ├── menu.c          菜单栏与选择界面
+│       └── input.c         键盘/字符/鼠标事件回调
 ├── libgraphics/            图形库源文件
 ├── include/                图形库头文件
 ├── MazeList/               迷宫数据文件
@@ -18,7 +29,9 @@ Maze_Game/
 └── FileName.txt            迷宫文件名记录
 ```
 
-`libgraphics/graphics.c` 定义了 Windows 程序入口 `WinMain()`，然后调用 `main.c` 中的 `Main()`。因此，本项目没有常见的 `int main()`。
+依赖方向为 `ui → core → common`，只能向下，不能反向。`core/` 下的代码不包含任何图形库头文件，因此可以脱离窗口单独编译测试。
+
+`libgraphics/graphics.c` 定义了 Windows 程序入口 `WinMain()`，然后调用 `src/main.c` 中的 `Main()`。因此，本项目没有常见的 `int main()`。
 
 ## 构建环境
 
@@ -207,6 +220,25 @@ target_link_libraries(GraphicsProject winmm)
 ```powershell
 cmake -S . -B build-new -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug
 cmake --build build-new --parallel
+```
+
+## 字符编码（重要）
+
+源码文件统一使用 **UTF-8**，但编译时必须让执行字符集为 **GBK**。`CMakeLists.txt` 已包含：
+
+```cmake
+add_compile_options(-finput-charset=UTF-8 -fexec-charset=GBK)
+```
+
+原因：`libgraphics` 通过 ANSI 版 Win32 API 绘制文本（`graphics.c` 中的 `TextOut` / `CreateFont`，项目未定义 `UNICODE`），这些 API 按**系统 ANSI 代码页**解释字节，中文 Windows 上是 GBK。`PlaySound` 同样接收 ANSI 路径。如果中文字面量以 UTF-8 字节写入 exe，界面会全部乱码，且 `Music/魔术先生.wav` 找不到而无声。
+
+如果你不用 CMake 而手动调用 gcc，必须自己带上这两个选项：
+
+```powershell
+gcc -std=gnu99 -finput-charset=UTF-8 -fexec-charset=GBK `
+    -Iinclude -Isrc/common -Isrc/core -Isrc/ui `
+    src/main.c src/core/*.c src/ui/*.c libgraphics/*.c `
+    -o GraphicsProject.exe -lwinmm -lgdi32 -luser32
 ```
 
 ## 游戏操作
